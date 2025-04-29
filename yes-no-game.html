@@ -1,122 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Yes/No Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 20px;
-        }
-        #game-image {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-        }
-        .buttons {
-            margin: 20px;
-        }
-        .buttons button {
-            font-size: 24px;
-            margin: 10px;
-            padding: 10px 20px;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-            height: 30px;
-        }
-        #mark {
-            font-size: 100px;
-            margin-top: 10px;
-            height: 100px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Yes or No Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #f0f8ff;
+    }
+
+    #startScreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #f8e1f4, #d1f0ff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #startScreen h1 {
+      font-size: 2.5em;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    #startScreen p {
+      font-size: 1.4em;
+      color: #333;
+      max-width: 600px;
+    }
+
+    #startButton {
+      margin-top: 40px;
+      padding: 15px 40px;
+      font-size: 1.5em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    #gameContainer {
+      display: none;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #gameImage {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .answer-button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .correct {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .wrong {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #feedback {
+      font-size: 1.5em;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Yes / No Game</h1>
-    <img id="game-image" src="" alt="Question Image">
-    <h2 id="question"></h2>
-    <div class="buttons">
-        <button id="yes-button">Yes</button>
-        <button id="no-button">No</button>
-    </div>
-    <div id="result"></div>
-    <div id="mark"></div>
+<!-- Welcome Start Screen -->
+<div id="startScreen">
+  <h1>🎉 Welcome to the Game! 🎉</h1>
+  <p>Listen to the question carefully. Then click the correct answer.<br> Let's have fun together! 🌟</p>
+  <button id="startButton" onclick="startGame()">Start</button>
+</div>
 
-    <script>
-        const questions = [
-            { image: 'image/cat.png', question: 'Is this a cat?', correctAnswer: 'Yes', correctSentence: 'Yes, it is a cat.' },
-            { image: 'image/dog.png', question: 'Is this a cat?', correctAnswer: 'No', correctSentence: 'No, it is a dog.' },
-            { image: 'image/ball.png', question: 'Is this a ball?', correctAnswer: 'Yes', correctSentence: 'Yes, it is a ball.' },
-            { image: 'image/apple.png', question: 'Is this a banana?', correctAnswer: 'No', correctSentence: 'No, it is an apple.' },
-            { image: 'image/sun.png', question: 'Is this the moon?', correctAnswer: 'No', correctSentence: 'No, it is the sun.' },
-            { image: 'image/car.png', question: 'Is this a car?', correctAnswer: 'Yes', correctSentence: 'Yes, it is a car.' },
-            { image: 'image/tree.png', question: 'Is this a tree?', correctAnswer: 'Yes', correctSentence: 'Yes, it is a tree.' },
-            { image: 'image/bird.png', question: 'Is this a cat?', correctAnswer: 'No', correctSentence: 'No, it is a bird.' },
-            { image: 'image/fish.png', question: 'Is this a fish?', correctAnswer: 'Yes', correctSentence: 'Yes, it is a fish.' },
-            { image: 'image/bicycle.png', question: 'Is this a car?', correctAnswer: 'No', correctSentence: 'No, it is a bicycle.' }
-        ];
+<!-- Game Content -->
+<div id="gameContainer">
+  <img id="gameImage" src="" alt="Game image">
+  <div>
+    <p id="questionText" style="font-size: 1.4em;"></p>
+    <button class="answer-button correct" onclick="checkAnswer(true)">Yes</button>
+    <button class="answer-button wrong" onclick="checkAnswer(false)">No</button>
+    <div id="feedback"></div>
+  </div>
+</div>
 
-        let currentQuestionIndex = 0;
+<script>
+const questions = [
+  {
+    img: "image/cat.jpg",
+    question: "Is this a cat?",
+    correct: true,
+    response: "Yes, it is a cat!"
+  },
+  {
+    img: "image/dog.jpg",
+    question: "Is this a cat?",
+    correct: false,
+    response: "No, it is a dog."
+  },
+  {
+    img: "image/apple.jpg",
+    question: "Is this a banana?",
+    correct: false,
+    response: "No, it is an apple."
+  },
+  {
+    img: "image/banana.jpg",
+    question: "Is this a banana?",
+    correct: true,
+    response: "Yes, it is a banana!"
+  },
+  {
+    img: "image/car.jpg",
+    question: "Is this a car?",
+    correct: true,
+    response: "Yes, it is a car!"
+  },
+  {
+    img: "image/bus.jpg",
+    question: "Is this a car?",
+    correct: false,
+    response: "No, it is a bus."
+  }
+];
 
-      function speak(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
+let currentIndex = 0;
 
-    const voices = speechSynthesis.getVoices();
-    // Try to pick a good female English voice
-    let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female'))
-        || voices.find(voice => voice.name.includes('Google US English'))
-        || voices.find(voice => voice.lang === 'en-GB' && voice.gender === 'female')
-        || voices[0]; // fallback to the first one
+function speak(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voices = speechSynthesis.getVoices();
+  const selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female')) ||
+                        voices.find(voice => voice.name.includes('Google US English')) ||
+                        voices[0];
+  if (selectedVoice) utterance.voice = selectedVoice;
+  utterance.rate = 0.9;
+  speechSynthesis.speak(utterance);
+}
 
-    if (selectedVoice) {
-        utterance.voice = selectedVoice;
-    }
+// Start screen logic
+function startGame() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('gameContainer').style.display = 'block';
+  speak("Let's begin! Listen carefully and choose the correct answer!");
+  setTimeout(() => showQuestion(), 3000);
+}
 
-    utterance.rate = 0.8; // Slow it down slightly for kids
-    speechSynthesis.speak(utterance);
-        }
+function showQuestion() {
+  const q = questions[currentIndex];
+  document.getElementById("gameImage").src = q.img;
+  document.getElementById("questionText").textContent = q.question;
+  document.getElementById("feedback").textContent = "";
+  speak(q.question);
+}
 
-        function loadQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            document.getElementById('game-image').src = currentQuestion.image;
-            document.getElementById('question').textContent = currentQuestion.question;
-            document.getElementById('result').textContent = '';
-            document.getElementById('mark').textContent = '';
-            speak(currentQuestion.question);
-        }
+function checkAnswer(userAnswer) {
+  const q = questions[currentIndex];
+  if (userAnswer === q.correct) {
+    document.getElementById("feedback").innerHTML = "✅ " + q.response;
+    speak(q.response);
+    setTimeout(() => {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("gameContainer").innerHTML = "<h2>🎉 Great job! You finished all the questions! 🎉</h2>";
+        speak("Great job! You finished all the questions!");
+      }
+    }, 2500);
+  } else {
+    document.getElementById("feedback").innerHTML = "❌ Try again.";
+    speak("Try again.");
+  }
+}
 
-        function checkAnswer(answer) {
-            const currentQuestion = questions[currentQuestionIndex];
-            const resultElement = document.getElementById('result');
-            const markElement = document.getElementById('mark');
-
-            if (answer === currentQuestion.correctAnswer) {
-                resultElement.textContent = 'Correct!';
-                resultElement.style.color = 'green';
-                markElement.textContent = '✔️';
-                speak(currentQuestion.correctSentence);
-
-                setTimeout(() => {
-                    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
-                    loadQuestion();
-                }, 2000); 
-            } else {
-                resultElement.textContent = 'Wrong. Try again!';
-                resultElement.style.color = 'red';
-                markElement.textContent = '❌';
-                speak('Wrong. Try again');
-            }
-        }
-
-        document.getElementById('yes-button').addEventListener('click', () => checkAnswer('Yes'));
-        document.getElementById('no-button').addEventListener('click', () => checkAnswer('No'));
-
-        loadQuestion();
-    </script>
+// Voice fallback
+if (typeof speechSynthesis !== "undefined") {
+  speechSynthesis.onvoiceschanged = () => {};
+}
+</script>
 
 </body>
 </html>
