@@ -62,8 +62,11 @@
 
         let currentQuestionIndex = 0;
 
-        function speak(text) {
+       function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
+            const voices = speechSynthesis.getVoices();
+            const selected = voices.find(v => v.name.includes('Google UK English Female')) || voices[0];
+            utterance.voice = selected;
             utterance.rate = 0.8;
             speechSynthesis.speak(utterance);
         }
@@ -93,10 +96,10 @@
                     loadQuestion();
                 }, 2000); 
             } else {
-                resultElement.textContent = 'Try again!';
+                resultElement.textContent = 'Wrong. Try again!';
                 resultElement.style.color = 'red';
                 markElement.textContent = '❌';
-                speak('Try again');
+                speak('Wrong. Try again');
             }
         }
 
