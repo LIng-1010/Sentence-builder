@@ -210,7 +210,7 @@ function speak(text) {
   const utterance = new SpeechSynthesisUtterance(text);
   // Use the first available voice if the specific voice isn't available
   utterance.voice = voices[0];  
-  utterance.rate = 0.9;  // Adjust the speech rate
+  utterance.rate = 0.8;  // Adjust the speech rate
   speechSynthesis.speak(utterance);
 }
 
@@ -245,8 +245,8 @@ function checkAnswer(userAnswer) {
       }
     }, 2500);
   } else {
-    document.getElementById("feedback").innerHTML = "❌ Try again.";
-    speak("Try again.");
+    document.getElementById("feedback").innerHTML = "❌Wrong! Try again.";
+    speak("Wrong! Try again.");
   }
 }
 
