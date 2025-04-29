@@ -123,15 +123,7 @@ const allquestions = [
   { img: "image/tree.png", question: "Is this a tree?", correct: true, response: "Yes, it is a tree!" }
 ];
 
-function getRandomQuestions(all, count) {
-  const shuffled = all.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
 
-let selectedQuestions = getRandomQuestions(allQuestions, 10);
-
-
-  
 let currentIndex = 0;
 let voices = [];
 
