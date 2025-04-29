@@ -1,74 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentence Builder for Kids</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #f9f7f7, #dbe2ef);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: #3f72af;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Auto-adjust columns */
-            gap: 15px;
-            margin-top: 20px;
-            padding: 10px;
-        }
-        .grid img {
-            width: 100%;  /* Make image fill its container */
-            height: 200px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            background: white;
-            padding: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-        .grid img:hover {
-            transform: scale(1.1); /* Zoom effect on hover */
-        }
-        .sentence {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #3f72af;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sentence Builder Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f9ff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #3f72af;
+    }
+
+    .grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .column {
+      flex: 1;
+      padding: 10px;
+      min-width: 180px;
+    }
+
+    .column h2 {
+      font-size: 1.2em;
+      color: #112d4e;
+      margin-bottom: 10px;
+    }
+
+    .word-image {
+      width: 100%;
+      max-width: 150px;
+      margin: 10px auto;
+      cursor: pointer;
+      border: 3px solid transparent;
+      border-radius: 12px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .word-image:hover {
+      transform: scale(1.05);
+      border-color: #3f72af;
+    }
+
+    #sentenceBox {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #333;
+      min-height: 40px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #resetBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      background-color: #3f72af;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #resetBtn:hover {
+      background-color: #2b5c93;
+    }
+  </style>
 </head>
 <body>
-    <h1>Build a Sentence!</h1>
+  <h1>Build a Sentence!</h1>
 
-    <div class="grid">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/dog.png" alt="Dog" onclick="addToSentence('Dog')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/cat.png" alt="Cat" onclick="addToSentence('Cat')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/car.png" alt="Car" onclick="addToSentence('Car')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/ball.png" alt="Ball" onclick="addToSentence('Ball')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/boy.png" alt="Boy" onclick="addToSentence('Boy')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/girl.png" alt="Girl" onclick="addToSentence('Girl')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/apple.png" alt="Apple" onclick="addToSentence('Apple')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/house.png" alt="House" onclick="addToSentence('House')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/tree.png" alt="Tree" onclick="addToSentence('Tree')">
-        <img src="https://raw.githubusercontent.com/Ling-1010/Sentence-builder/main/image/sun.png" alt="Sun" onclick="addToSentence('Sun')">
+  <div class="grid">
+    <!-- Column 1: Subject -->
+    <div class="column">
+      <h2>Subject</h2>
+      <img src="image/dog.png" class="word-image" onclick="selectWord(0, 'Dog')">
+      <img src="image/cat.png" class="word-image" onclick="selectWord(0, 'Cat')">
+      <img src="image/boy.png" class="word-image" onclick="selectWord(0, 'Boy')">
+      <img src="image/girl.png" class="word-image" onclick="selectWord(0, 'Girl')">
     </div>
 
-    <div class="sentence">
-        <p id="sentenceText">Your sentence will appear here!</p>
+    <!-- Column 2: Verb -->
+    <div class="column">
+      <h2>Verb</h2>
+      <img src="image/eat.png" class="word-image" onclick="selectWord(1, 'eats')">
+      <img src="image/play.png" class="word-image" onclick="selectWord(1, 'plays')">
+      <img src="image/run.png" class="word-image" onclick="selectWord(1, 'runs')">
+      <img src="image/drive.png" class="word-image" onclick="selectWord(1, 'drives')">
+      <img src="image/jump.png" class="word-image" onclick="selectWord(1, 'jumps')">
     </div>
 
-    <script>
-        let sentence = [];
+    <!-- Column 3: Article -->
+    <div class="column">
+      <h2>Helper</h2>
+      <img src="image/the.png" class="word-image" onclick="selectWord(2, 'the')">
+      <img src="image/a.png" class="word-image" onclick="selectWord(2, 'a')">
+      <img src="image/an.png" class="word-image" onclick="selectWord(2, 'an')">
+      <img src="image/with.png" class="word-image" onclick="selectWord(2, 'with')">
+    </div>
 
-        // Function to add words to sentence
-        function addToSentence(word) {
-            sentence.push(word);
-            document.getElementById("sentenceText").innerHTML = sentence.join(" ");
-        }
-    </script>
+    <!-- Column 4: Object -->
+    <div class="column">
+      <h2>Object</h2>
+      <img src="image/ball.png" class="word-image" onclick="selectWord(3, 'ball')">
+      <img src="image/apple.png" class="word-image" onclick="selectWord(3, 'apple')">
+      <img src="image/car.png" class="word-image" onclick="selectWord(3, 'car')">
+      <img src="image/sun.png" class="word-image" onclick="selectWord(3, 'sun')">
+    </div>
+  </div>
+
+  <div id="sentenceBox">Your sentence will appear here!</div>
+  <button id="resetBtn" onclick="resetSentence()">Reset</button>
+
+  <script>
+    let sentenceParts = ["", "", "", ""];
+
+    function selectWord(column, word) {
+      sentenceParts[column] = word;
+      updateSentence();
+    }
+
+    function updateSentence() {
+      const sentence = sentenceParts.filter(w => w !== "").join(" ");
+      document.getElementById("sentenceBox").innerText = sentence;
+
+      if (sentenceParts.every(w => w !== "")) {
+        setTimeout(() => {
+          alert("Great job! You made: " + sentence);
+        }, 100);
+      }
+    }
+
+    function resetSentence() {
+      sentenceParts = ["", "", "", ""];
+      document.getElementById("sentenceBox").innerText = "Your sentence will appear here!";
+    }
+  </script>
 </body>
 </html>
