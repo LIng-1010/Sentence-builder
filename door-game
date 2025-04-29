@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maze Door Game - Level 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #e0f7fa;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+    #question {
+      font-size: 1.5em;
+      margin: 20px;
+    }
+    .door-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .door {
+      width: 120px;
+      height: 180px;
+      background-color: #8d6e63;
+      border: 4px solid #5d4037;
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .door:hover {
+      transform: scale(1.05);
+    }
+    .label {
+      position: absolute;
+      bottom: -30px;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+    .feedback {
+      margin-top: 20px;
+      font-size: 1.3em;
+      color: green;
+    }
+    .shake {
+      animation: shake 0.3s;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Maze Door Game - Level 1</h1>
+  <div id="question">Where is the cat?</div>
+  <div class="door-container">
+    <div class="door" onclick="checkAnswer('dog')">
+      <div class="label">Dog</div>
+    </div>
+    <div class="door" onclick="checkAnswer('cat')">
+      <div class="label">Cat</div>
+    </div>
+    <div class="door" onclick="checkAnswer('fish')">
+      <div class="label">Fish</div>
+    </div>
+  </div>
+  <div id="feedback" class="feedback"></div>
+
+  <script>
+    const correctAnswer = 'cat';
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.9;
+      speechSynthesis.speak(utter);
+    }
+
+    function checkAnswer(choice) {
+      const feedback = document.getElementById('feedback');
+      if (choice === correctAnswer) {
+        feedback.textContent = '✅ Correct! The door opens!';
+        speak("Correct! The door opens!");
+      } else {
+        feedback.textContent = '❌ Wrong! Try another door.';
+        speak("Wrong! Try another door.");
+        shakeDoor(choice);
+      }
+    }
+
+    function shakeDoor(label) {
+      const doors = document.querySelectorAll('.door');
+      doors.forEach(door => {
+        if (door.querySelector('.label').textContent.toLowerCase() === label) {
+          door.classList.add('shake');
+          setTimeout(() => door.classList.remove('shake'), 300);
+        }
+      });
+    }
+
+    speak("Where is the cat?");
+  </script>
+</body>
+</html>
