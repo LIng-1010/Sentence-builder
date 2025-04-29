@@ -62,13 +62,22 @@
 
         let currentQuestionIndex = 0;
 
-       function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            const voices = speechSynthesis.getVoices();
-            const selected = voices.find(v => v.name.includes('Google UK English Female')) || voices[0];
-            utterance.voice = selected;
-            utterance.rate = 0.8;
-            speechSynthesis.speak(utterance);
+      function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    const voices = speechSynthesis.getVoices();
+    // Try to pick a good female English voice
+    let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female'))
+        || voices.find(voice => voice.name.includes('Google US English'))
+        || voices.find(voice => voice.lang === 'en-GB' && voice.gender === 'female')
+        || voices[0]; // fallback to the first one
+
+    if (selectedVoice) {
+        utterance.voice = selectedVoice;
+    }
+
+    utterance.rate = 0.8; // Slow it down slightly for kids
+    speechSynthesis.speak(utterance);
         }
 
         function loadQuestion() {
