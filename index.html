@@ -6,21 +6,28 @@
   <title>Sentence Builder</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
       background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
       background-size: cover;
-      padding: 2rem;
+      padding: 3rem;
       color: white;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #ffd700;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
     }
     select, button {
       font-size: 1.5rem;
-      margin: 0.5rem;
-      padding: 0.8rem 1.5rem;
+      margin: 1rem;
+      padding: 1rem 2rem;
       border-radius: 10px;
       background-color: rgba(255, 255, 255, 0.7);
       border: 2px solid #fff;
       color: #333;
+      width: 80%;
+      max-width: 300px;
     }
     select:focus, button:focus {
       outline: none;
@@ -33,68 +40,84 @@
       color: #ffd700;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     }
-    h1 {
-      font-size: 3rem;
-      color: #ffd700;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    .icon {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .column {
+      margin: 1rem;
     }
   </style>
 </head>
 <body>
   <h1>Sentence Builder Game</h1>
 
-  <div>
-    <select id="col1">
-      <option>I</option>
-      <option>You</option>
-      <option>The dog</option>
-      <option>The cat</option>
-      <option>My mom</option>
-      <option>My dad</option>
-      <option>A friend</option>
-      <option>The teacher</option>
-      <option>The boy</option>
-      <option>The girl</option>
-    </select>
+  <div class="container">
+    <div class="column">
+      <select id="col1">
+        <option value="I">I <img class="icon" src="images/i.png" alt="I" /></option>
+        <option value="You">You <img class="icon" src="images/you.png" alt="You" /></option>
+        <option value="The dog">The dog <img class="icon" src="images/dog.png" alt="The dog" /></option>
+        <option value="The cat">The cat <img class="icon" src="images/cat.png" alt="The cat" /></option>
+        <option value="My mom">My mom <img class="icon" src="images/mom.png" alt="My mom" /></option>
+        <option value="My dad">My dad <img class="icon" src="images/dad.png" alt="My dad" /></option>
+        <option value="A friend">A friend <img class="icon" src="images/friend.png" alt="A friend" /></option>
+        <option value="The teacher">The teacher <img class="icon" src="images/teacher.png" alt="The teacher" /></option>
+        <option value="The boy">The boy <img class="icon" src="images/boy.png" alt="The boy" /></option>
+        <option value="The girl">The girl <img class="icon" src="images/girl.png" alt="The girl" /></option>
+      </select>
+    </div>
 
-    <select id="col2">
-      <option>eat</option>
-      <option>play</option>
-      <option>run</option>
-      <option>sing</option>
-      <option>draw</option>
-      <option>jump</option>
-      <option>talk</option>
-      <option>read</option>
-      <option>dance</option>
-      <option>sleep</option>
-    </select>
+    <div class="column">
+      <select id="col2">
+        <option value="eat">eat <img class="icon" src="images/eat.png" alt="eat" /></option>
+        <option value="play">play <img class="icon" src="images/play.png" alt="play" /></option>
+        <option value="run">run <img class="icon" src="images/run.png" alt="run" /></option>
+        <option value="sing">sing <img class="icon" src="images/sing.png" alt="sing" /></option>
+        <option value="draw">draw <img class="icon" src="images/draw.png" alt="draw" /></option>
+        <option value="jump">jump <img class="icon" src="images/jump.png" alt="jump" /></option>
+        <option value="talk">talk <img class="icon" src="images/talk.png" alt="talk" /></option>
+        <option value="read">read <img class="icon" src="images/read.png" alt="read" /></option>
+        <option value="dance">dance <img class="icon" src="images/dance.png" alt="dance" /></option>
+        <option value="sleep">sleep <img class="icon" src="images/sleep.png" alt="sleep" /></option>
+      </select>
+    </div>
 
-    <select id="col3">
-      <option>fast</option>
-      <option>loud</option>
-      <option>funny</option>
-      <option>happy</option>
-      <option>quiet</option>
-      <option>slow</option>
-      <option>smart</option>
-      <option>beautiful</option>
-      <option>strong</option>
-      <option>kind</option>
-    </select>
+    <div class="column">
+      <select id="col3">
+        <option value="fast">fast <img class="icon" src="images/fast.png" alt="fast" /></option>
+        <option value="loud">loud <img class="icon" src="images/loud.png" alt="loud" /></option>
+        <option value="funny">funny <img class="icon" src="images/funny.png" alt="funny" /></option>
+        <option value="happy">happy <img class="icon" src="images/happy.png" alt="happy" /></option>
+        <option value="quiet">quiet <img class="icon" src="images/quiet.png" alt="quiet" /></option>
+        <option value="slow">slow <img class="icon" src="images/slow.png" alt="slow" /></option>
+        <option value="smart">smart <img class="icon" src="images/smart.png" alt="smart" /></option>
+        <option value="beautiful">beautiful <img class="icon" src="images/beautiful.png" alt="beautiful" /></option>
+        <option value="strong">strong <img class="icon" src="images/strong.png" alt="strong" /></option>
+        <option value="kind">kind <img class="icon" src="images/kind.png" alt="kind" /></option>
+      </select>
+    </div>
 
-    <select id="col4">
-      <option>cake</option>
-      <option>park</option>
-      <option>book</option>
-      <option>bed</option>
-      <option>ball</option>
-      <option>music</option>
-      <option>picture</option>
-      <option>food</option>
-      <option>room</option>
-      <option>chair</option>
-    </select>
+    <div class="column">
+      <select id="col4">
+        <option value="cake">cake <img class="icon" src="images/cake.png" alt="cake" /></option>
+        <option value="park">park <img class="icon" src="images/park.png" alt="park" /></option>
+        <option value="book">book <img class="icon" src="images/book.png" alt="book" /></option>
+        <option value="bed">bed <img class="icon" src="images/bed.png" alt="bed" /></option>
+        <option value="ball">ball <img class="icon" src="images/ball.png" alt="ball" /></option>
+        <option value="music">music <img class="icon" src="images/music.png" alt="music" /></option>
+        <option value="picture">picture <img class="icon" src="images/picture.png" alt="picture" /></option>
+        <option value="food">food <img class="icon" src="images/food.png" alt="food" /></option>
+        <option value="room">room <img class="icon" src="images/room.png" alt="room" /></option>
+        <option value="chair">chair <img class="icon" src="images/chair.png" alt="chair" /></option>
+      </select>
+    </div>
   </div>
 
   <button onclick="makeSentence()">Make Sentence</button>
