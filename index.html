@@ -1,144 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sentence Builder</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
-      background-size: cover;
-      padding: 3rem;
-      color: white;
-    }
-    h1 {
-      font-size: 3rem;
-      color: #ffd700;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-    }
-    select, button {
-      font-size: 1.5rem;
-      margin: 1rem;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border: 2px solid #fff;
-      color: #333;
-      width: 80%;
-      max-width: 300px;
-    }
-    select:focus, button:focus {
-      outline: none;
-      border-color: #ffd700;
-    }
-    #sentence {
-      margin-top: 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #ffd700;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    }
-    .icon {
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .column {
-      margin: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Builder for Kids</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #f9f7f7, #dbe2ef);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #3f72af;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: white;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Sentence Builder Game</h1>
+    <h1>Build a Sentence!</h1>
 
-  <div class="container">
-    <div class="column">
-      <select id="col1">
-        <option value="I">I <img class="icon" src="images/i.png" alt="I" /></option>
-        <option value="You">You <img class="icon" src="images/you.png" alt="You" /></option>
-        <option value="The dog">The dog <img class="icon" src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/dog.png" alt="Dog" />
-</option>
-        <option value="The cat">The cat <img class="icon" src="images/cat.png" alt="The cat" /></option>
-        <option value="My mom">My mom <img class="icon" src="images/mom.png" alt="My mom" /></option>
-        <option value="My dad">My dad <img class="icon" src="images/dad.png" alt="My dad" /></option>
-        <option value="A friend">A friend <img class="icon" src="images/friend.png" alt="A friend" /></option>
-        <option value="The teacher">The teacher <img class="icon" src="images/teacher.png" alt="The teacher" /></option>
-        <option value="The boy">The boy <img class="icon" src="images/boy.png" alt="The boy" /></option>
-        <option value="The girl">The girl <img class="icon" src="images/girl.png" alt="The girl" /></option>
-      </select>
+    <div class="grid">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/dog.png" alt="Dog">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/cat.png" alt="Cat">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/car.png" alt="Car">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/ball.png" alt="Ball">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/boy.png" alt="Boy">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/girl.png" alt="Girl">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/apple.png" alt="Apple">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/house.png" alt="House">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/tree.png" alt="Tree">
+        <img src="https://github.com/Ling-1010/Sentence-builder/raw/main/images/sun.png" alt="Sun">
     </div>
 
-    <div class="column">
-      <select id="col2">
-        <option value="eat">eat <img class="icon" src="images/eat.png" alt="eat" /></option>
-        <option value="play">play <img class="icon" src="images/play.png" alt="play" /></option>
-        <option value="run">run <img class="icon" src="images/run.png" alt="run" /></option>
-        <option value="sing">sing <img class="icon" src="images/sing.png" alt="sing" /></option>
-        <option value="draw">draw <img class="icon" src="images/draw.png" alt="draw" /></option>
-        <option value="jump">jump <img class="icon" src="images/jump.png" alt="jump" /></option>
-        <option value="talk">talk <img class="icon" src="images/talk.png" alt="talk" /></option>
-        <option value="read">read <img class="icon" src="images/read.png" alt="read" /></option>
-        <option value="dance">dance <img class="icon" src="images/dance.png" alt="dance" /></option>
-        <option value="sleep">sleep <img class="icon" src="images/sleep.png" alt="sleep" /></option>
-      </select>
-    </div>
+    <p>Pick your words and create a sentence!</p>
 
-    <div class="column">
-      <select id="col3">
-        <option value="fast">fast <img class="icon" src="images/fast.png" alt="fast" /></option>
-        <option value="loud">loud <img class="icon" src="images/loud.png" alt="loud" /></option>
-        <option value="funny">funny <img class="icon" src="images/funny.png" alt="funny" /></option>
-        <option value="happy">happy <img class="icon" src="images/happy.png" alt="happy" /></option>
-        <option value="quiet">quiet <img class="icon" src="images/quiet.png" alt="quiet" /></option>
-        <option value="slow">slow <img class="icon" src="images/slow.png" alt="slow" /></option>
-        <option value="smart">smart <img class="icon" src="images/smart.png" alt="smart" /></option>
-        <option value="beautiful">beautiful <img class="icon" src="images/beautiful.png" alt="beautiful" /></option>
-        <option value="strong">strong <img class="icon" src="images/strong.png" alt="strong" /></option>
-        <option value="kind">kind <img class="icon" src="images/kind.png" alt="kind" /></option>
-      </select>
-    </div>
-
-    <div class="column">
-      <select id="col4">
-        <option value="cake">cake <img class="icon" src="images/cake.png" alt="cake" /></option>
-        <option value="park">park <img class="icon" src="images/park.png" alt="park" /></option>
-        <option value="book">book <img class="icon" src="images/book.png" alt="book" /></option>
-        <option value="bed">bed <img class="icon" src="images/bed.png" alt="bed" /></option>
-        <option value="ball">ball <img class="icon" src="images/ball.png" alt="ball" /></option>
-        <option value="music">music <img class="icon" src="images/music.png" alt="music" /></option>
-        <option value="picture">picture <img class="icon" src="images/picture.png" alt="picture" /></option>
-        <option value="food">food <img class="icon" src="images/food.png" alt="food" /></option>
-        <option value="room">room <img class="icon" src="images/room.png" alt="room" /></option>
-        <option value="chair">chair <img class="icon" src="images/chair.png" alt="chair" /></option>
-      </select>
-    </div>
-  </div>
-
-  <button onclick="makeSentence()">Make Sentence</button>
-
-  <div id="sentence"></div>
-
-  <script>
-    function makeSentence() {
-      const w1 = document.getElementById('col1').value;
-      const w2 = document.getElementById('col2').value;
-      const w3 = document.getElementById('col3').value;
-      const w4 = document.getElementById('col4').value;
-      const sentence = `${w1} ${w2} ${w3} ${w4}`;
-      document.getElementById('sentence').textContent = sentence;
-      // Voice feedback
-      if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(sentence);
-        speechSynthesis.speak(utter);
-      }
-    }
-  </script>
 </body>
 </html>
