@@ -77,4 +77,33 @@
 
 <h1>Choose the correct object: "Cat"</h1>
 <div class="door-container">
-  <div class="
+  <div class="door" onclick="checkAnswer(this, 'cat')">
+    <img src="image/cat.png" alt="cat">
+    <div class="knob"></div>
+  </div>
+  <div class="door" onclick="checkAnswer(this, 'dog')">
+    <img src="image/dog.png" alt="dog">
+    <div class="knob"></div>
+  </div>
+  <div class="door" onclick="checkAnswer(this, 'fish')">
+    <img src="image/fish.png" alt="fish">
+    <div class="knob"></div>
+  </div>
+</div>
+
+<script>
+const correctAnswer = 'cat';
+
+function checkAnswer(element, answer) {
+  if (answer === correctAnswer) {
+    element.classList.add('open');
+    setTimeout(() => alert("Correct! 🎉 The door opens!"), 600);
+  } else {
+    element.classList.add('shake');
+    setTimeout(() => element.classList.remove('shake'), 500);
+  }
+}
+</script>
+
+</body>
+</html>
