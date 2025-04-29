@@ -149,6 +149,15 @@ function speak(text) {
   speechSynthesis.speak(utterance);
 }
 
+function getRandomQuestions(all, count) {
+  const shuffled = all.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+let selectedQuestions = getRandomQuestions(allQuestions, 10);
+
+
+  
 function startGame() {
   loadVoices();
   document.getElementById('startScreen').style.display = 'none';
