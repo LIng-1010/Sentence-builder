@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes/No Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .game-container {
+            margin-top: 30px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Yes/No Identification Game</h1>
+    
+    <div class="game-container">
+        <img id="game-image" src="" alt="Object Image">
+        <div id="question"></div>
+        <div class="buttons">
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { image: 'image/cat.png', question: 'Is this a cat?', correctAnswer: 'Yes' },
+            { image: 'image/dog.png', question: 'Is this a dog?', correctAnswer: 'Yes' },
+            { image: 'image/ball.png', question: 'Is this a ball?', correctAnswer: 'Yes' },
+            { image: 'image/apple.png', question: 'Is this an apple?', correctAnswer: 'Yes' },
+            { image: 'image/sun.png', question: 'Is this the sun?', correctAnswer: 'Yes' },
+            { image: 'image/car.png', question: 'Is this a car?', correctAnswer: 'Yes' },
+            { image: 'image/tree.png', question: 'Is this a tree?', correctAnswer: 'Yes' },
+            { image: 'image/bird.png', question: 'Is this a bird?', correctAnswer: 'Yes' },
+            { image: 'image/fish.png', question: 'Is this a fish?', correctAnswer: 'Yes' },
+            { image: 'image/bicycle.png', question: 'Is this a bicycle?', correctAnswer: 'Yes' }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById('game-image').src = currentQuestion.image;
+            document.getElementById('question').textContent = currentQuestion.question;
+            document.getElementById('result').textContent = '';
+        }
+
+        function checkAnswer(answer) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const resultElement = document.getElementById('result');
+
+            if (answer === currentQuestion.correctAnswer) {
+                resultElement.textContent = 'Correct!';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Try again!';
+                resultElement.style.color = 'red';
+            }
+
+            // Move to the next question after a short delay
+            setTimeout(() => {
+                currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+                loadQuestion();
+            }, 1000);
+        }
+
+        // Event listeners for Yes/No buttons
+        document.getElementById('yes-button').addEventListener('click', () => checkAnswer('Yes'));
+        document.getElementById('no-button').addEventListener('click', () => checkAnswer('No'));
+
+        // Load the first question
+        loadQuestion();
+    </script>
+
+</body>
+</html>
