@@ -107,7 +107,7 @@
 </div>
 
 <script>
-const allquestions = [
+let allquestions = [
   { img: "image/apple.png", question: "Is this an apple?", correct: true, response: "Yes, it is an apple!" },
   { img: "image/ball.png", question: "Is this a bat?", correct: false, response: "No, it is a ball!" },
   { img: "image/bicycle.png", question: "Is this a bicycle?", correct: true, response: "Yes, it is a bicycle!" },
@@ -122,6 +122,8 @@ const allquestions = [
   { img: "image/sun.png", question: "Is this the sun?", correct: true, response: "Yes, it is the sun!" },
   { img: "image/tree.png", question: "Is this a tree?", correct: true, response: "Yes, it is a tree!" }
 ];
+
+let questions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
 
 
 let currentIndex = 0;
