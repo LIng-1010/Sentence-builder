@@ -218,9 +218,12 @@ function endGame() {
   document.getElementById("gameContainer").innerHTML = `
     <h2>🎉 Great job! You finished all questions! 🎉</h2>
     <h3>Your score: ${score} / ${questions.length}</h3>
-    <button id="playAgainBtn" onclick="restartGame()">🔄 Play Again</button>
+    <button id="playAgainBtn" style="padding: 15px 30px; margin-top: 20px; font-size: 1.3em; background-color: #2196F3; color: white; border: none; border-radius: 12px; cursor: pointer;">🔄 Play Again</button>
   `;
+  document.getElementById("playAgainBtn").addEventListener("click", restartGame);
   speak(`Great job! You finished all the questions. Your score is ${score} out of ${questions.length}`);
+}
+
 }
 
 function restartGame() {
