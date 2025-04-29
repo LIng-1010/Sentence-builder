@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentence Builder</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #fdf6e3;
+      padding: 2rem;
+    }
+    select, button {
+      font-size: 1.2rem;
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+    }
+    #sentence {
+      margin-top: 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sentence Builder Game</h1>
+
+  <div>
+    <select id="col1">
+      <option>I</option>
+      <option>You</option>
+      <option>Dog</option>
+      <option>Cat</option>
+      <option>Boy</option>
+      <option>Girl</option>
+      <option>Dad</option>
+      <option>Mom</option>
+      <option>Bird</option>
+      <option>Frog</option>
+    </select>
+
+    <select id="col2">
+      <option>eat</option>
+      <option>run</option>
+      <option>jump</option>
+      <option>play</option>
+      <option>sing</option>
+      <option>draw</option>
+      <option>walk</option>
+      <option>cook</option>
+      <option>sleep</option>
+      <option>swim</option>
+    </select>
+
+    <select id="col3">
+      <option>fast</option>
+      <option>slow</option>
+      <option>happy</option>
+      <option>loud</option>
+      <option>quiet</option>
+      <option>neat</option>
+      <option>funny</option>
+      <option>nice</option>
+      <option>soft</option>
+      <option>big</option>
+    </select>
+
+    <select id="col4">
+      <option>cake</option>
+      <option>home</option>
+      <option>bed</option>
+      <option>ball</option>
+      <option>song</option>
+      <option>fish</option>
+      <option>park</option>
+      <option>rice</option>
+      <option>tree</option>
+      <option>pond</option>
+    </select>
+  </div>
+
+  <button onclick="makeSentence()">Make Sentence</button>
+
+  <div id="sentence"></div>
+
+  <script>
+    function makeSentence() {
+      const w1 = document.getElementById('col1').value;
+      const w2 = document.getElementById('col2').value;
+      const w3 = document.getElementById('col3').value;
+      const w4 = document.getElementById('col4').value;
+      const sentence = `${w1} ${w2} ${w3} ${w4}`;
+      document.getElementById('sentence').textContent = sentence;
+      // Voice feedback
+      if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(sentence);
+        speechSynthesis.speak(utter);
+      }
+    }
+  </script>
+</body>
+</html>
