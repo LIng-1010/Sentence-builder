@@ -208,8 +208,9 @@ function speak(text) {
   }
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.voice = voices.find(voice => voice.name.includes('Google UK English Female')) || voices[0];
-  utterance.rate = 0.9;
+  // Use the first available voice if the specific voice isn't available
+  utterance.voice = voices[0];  
+  utterance.rate = 0.9;  // Adjust the speech rate
   speechSynthesis.speak(utterance);
 }
 
