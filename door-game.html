@@ -1,114 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Maze Door Matching Game - Level 1</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Door Game - Level 1</title>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: url('hallway.jpg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      padding: 0;
       overflow: hidden;
-    }
-
-    .scene {
-      perspective: 1200px;
-      display: flex;
-      gap: 50px;
-    }
-
-    .door-container {
-      position: relative;
-      width: 150px;
-      height: 250px;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-    }
-
-    .door {
       width: 100%;
       height: 100%;
-      background: #7a5e3c;
-      border: 6px solid #5c4421;
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 4px 4px 20px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transform-origin: left center;
-      transition: transform 1s ease-in-out;
+      background: black;
     }
-
-    .door img {
+    canvas {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .door.open {
-      transform: rotateY(-120deg);
-    }
-
-    .door.locked {
-      animation: shake 0.4s;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-
-    #message {
-      position: absolute;
-      top: 30px;
-      font-size: 1.5em;
-      color: white;
-      background: rgba(0,0,0,0.5);
-      padding: 10px 20px;
-      border-radius: 10px;
+      display: block;
     }
   </style>
 </head>
 <body>
+  <canvas id="renderCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true);
 
-<div id="message">Find the door with the cat</div>
+    const createScene = () => {
+      const scene = new BABYLON.Scene(engine);
 
-<div class="scene">
-  <div class="door-container" onclick="checkAnswer(this, 'cat')">
-    <div class="door"><img src="image/cat.png" alt="cat"></div>
-  </div>
-  <div class="door-container" onclick="checkAnswer(this, 'dog')">
-    <div class="door"><img src="image/dog.png" alt="dog"></div>
-  </div>
-  <div class="door-container" onclick="checkAnswer(this, 'ball')">
-    <div class="door"><img src="image/ball.png" alt="ball"></div>
-  </div>
-</div>
+      const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 3, 10, new BABYLON.Vector3(0, 1, 0), scene);
+      camera.attachControl(canvas, true);
 
-<script>
-function checkAnswer(el, answer) {
-  const door = el.querySelector('.door');
-  const correct = 'cat';
+      const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-  if (answer === correct) {
-    door.classList.add('open');
-    document.getElementById('message').textContent = '✅ Correct! Door opened!';
-    new Audio('door-open.mp3').play();
-  } else {
-    door.classList.add('locked');
-    document.getElementById('message').textContent = '❌ Wrong door! Try again';
-    new Audio('door-locked.mp3').play();
-    setTimeout(() => door.classList.remove('locked'), 400);
-  }
-}
-</script>
+      // Floor and walls
+      const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, scene);
+      const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
+      wallMat.diffuseColor = new BABYLON.Color3(0.7, 0.7, 0.8);
 
+      const leftWall = BABYLON.MeshBuilder.CreateBox("leftWall", { width: 0.1, height: 5, depth: 10 }, scene);
+      leftWall.position.x = -5;
+      leftWall.position.y = 2.5;
+      leftWall.material = wallMat;
+
+      const rightWall = leftWall.clone("rightWall");
+      rightWall.position.x = 5;
+
+      const backWall = BABYLON.MeshBuilder.CreateBox("backWall", { width: 10, height: 5, depth: 0.1 }, scene);
+      backWall.position.z = 5;
+      backWall.position.y = 2.5;
+      backWall.material = wallMat;
+
+      // Doors
+      const doorMaterial = new BABYLON.StandardMaterial("doorMat", scene);
+      doorMaterial.diffuseColor = BABYLON.Color3.Brown();
+
+      const createDoor = (name, x, isCorrect) => {
+        const door = BABYLON.MeshBuilder.CreateBox(name, { width: 1.5, height: 3, depth: 0.2 }, scene);
+        door.position = new BABYLON.Vector3(x, 1.5, 0);
+        door.material = doorMaterial;
+        door.isCorrect = isCorrect;
+        return door;
+      };
+
+      const doorLeft = createDoor("doorLeft", -2, true);   // Correct door
+      const doorRight = createDoor("doorRight", 2, false); // Wrong door
+
+      const guiTex = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+      const doorLabel = (door, text) => {
+        const label = new BABYLON.GUI.Rectangle();
+        label.width = "150px";
+        label.height = "40px";
+        label.cornerRadius = 10;
+        label.color = "white";
+        label.thickness = 2;
+        label.background = "black";
+
+        const labelText = new BABYLON.GUI.TextBlock();
+        labelText.text = text;
+        labelText.color = "white";
+        labelText.fontSize = 24;
+        label.addControl(labelText);
+
+        guiTex.addControl(label);
+        label.linkWithMesh(door);
+        label.linkOffsetY = -120;
+      };
+
+      doorLabel(doorLeft, "APPLE");
+      doorLabel(doorRight, "BALL");
+
+      // Click interaction
+      scene.onPointerObservable.add((pointerInfo) => {
+        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERPICK) {
+          const picked = pointerInfo.pickInfo.pickedMesh;
+          if (picked && picked.name.startsWith("door")) {
+            if (picked.isCorrect) {
+              BABYLON.Animation.CreateAndStartAnimation("open", picked, "rotation.y", 30, 30, 0, Math.PI / 2, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+            } else {
+              // shake animation
+              const keys = [
+                { frame: 0, value: 0 },
+                { frame: 5, value: 0.1 },
+                { frame: 10, value: -0.1 },
+                { frame: 15, value: 0.1 },
+                { frame: 20, value: 0 }
+              ];
+              const anim = new BABYLON.Animation("shake", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+              anim.setKeys(keys);
+              picked.animations = [];
+              picked.animations.push(anim);
+              scene.beginAnimation(picked, 0, 20, false);
+            }
+          }
+        }
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => scene.render());
+    window.addEventListener("resize", () => engine.resize());
+  </script>
 </body>
 </html>
